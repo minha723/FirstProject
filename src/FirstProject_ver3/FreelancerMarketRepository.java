@@ -130,6 +130,8 @@ public class FreelancerMarketRepository {
 						}
 					}
 				}
+			}else {
+				System.out.println("상품번호를 확인해주세요!");
 			}
 		}
 
