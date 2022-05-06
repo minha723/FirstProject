@@ -10,9 +10,9 @@ public class FreelancerMarketMain {
 		boolean run = true;
 		while (run) {
 			int sel = 0;
-			System.out.println("---------------------------------------------");
+			System.out.println("----------------------------------------------");
 			System.out.println("1. 전문가서비스 | 2. 고객서비스 | 3. 관리자 모드 | 4. 종료");
-			System.out.println("---------------------------------------------");
+			System.out.println("----------------------------------------------");
 			System.out.print("메뉴 선택> ");
 			sel = scan.nextInt();
 			if (sel == 1) {

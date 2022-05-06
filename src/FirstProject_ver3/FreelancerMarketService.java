@@ -175,13 +175,13 @@ public class FreelancerMarketService {
 
 	private void contact(Long fid) {
 		if (findHistory(fid)) {
-			System.out.print("연락하실 구매자 번호를 입력: ");
+			System.out.print("연락하실 고객번호를 입력: ");
 			Long cid = scan.nextLong();
 			ClientDTO client = fmr.contact(cid);
 			if (client != null) {
-				System.out.println("선택하신 구매자님의 연락처는 " + client.getcMobile() + "입니다.");
+				System.out.println("선택하신 고객님의 연락처는 " + client.getcMobile() + "입니다.");
 			} else {
-				System.out.println("구매자 번호를 확인 하세요.");
+				System.out.println("고객번호를 확인 하세요.");
 			}
 		}
 	}
@@ -285,7 +285,6 @@ public class FreelancerMarketService {
 			System.out.print("구매하고자 하는 상품번호 입력: ");
 			Long pid = scan.nextLong();
 			fmr.buyProduct(cid, pid);
-			System.out.println("구매 성공!");
 		}
 	}
 
@@ -307,8 +306,8 @@ public class FreelancerMarketService {
 		if (checkStarHistory(cid)) {
 			System.out.print("별점을 주실 상품번호를 입력: ");
 			Long pid = scan.nextLong();
-			System.out.print("별점 입력 (1부터 5까지의 수로 입력): ");
-			int star = scan.nextInt();
+			System.out.print("별점 입력 (1부터 5까지의 숫자로 입력): ");
+			double star = scan.nextDouble();
 			if (fmr.inputStar(pid, star)) {
 				System.out.println("별점 등록 성공!");
 				fmr.deleteList(pid);
@@ -334,13 +333,13 @@ public class FreelancerMarketService {
 
 	private void fContact(Long cid) {
 		if (checkHistory(cid)) {
-			System.out.print("연락하실 판매자 번호를 입력: ");
+			System.out.print("연락하실 전문가번호를 입력: ");
 			Long fid = scan.nextLong();
 			FreelancerDTO freelancer = fmr.fContact(fid);
 			if (freelancer != null) {
-				System.out.println("선택하신 판매자님의 전화번호: " + freelancer.getfMobile() + " 이메일: " + freelancer.getfEmail());
+				System.out.println("선택하신 전문가님의 전화번호: " + freelancer.getfMobile() + " 이메일: " + freelancer.getfEmail());
 			} else {
-				System.out.println("판매자 번호를 확인 하세요.");
+				System.out.println("전문가번호를 확인 하세요.");
 			}
 		}
 

@@ -239,7 +239,7 @@ public class FreelancerMarketRepository {
 		return historyList;
 	}
 
-	public boolean inputStar(Long pid, int star) {
+	public boolean inputStar(Long pid, double star) {
 		boolean result = false;
 		for (ProductDTO p : productList) {
 			if (pid.equals(p.getpId()) && p.getStar() == 0) {

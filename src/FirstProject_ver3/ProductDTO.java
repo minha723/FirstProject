@@ -6,13 +6,13 @@ public class ProductDTO {
 	private String pName;
 	private String pDesc;
 	private Long pPrice;
-	private int star;
+	private double star;
 
 	ProductDTO() {
 
 	}
 
-	public ProductDTO(Long pId, Long fId, String pName, String pDesc, Long pPrice, int pStar) {
+	public ProductDTO(Long pId, Long fId, String pName, String pDesc, Long pPrice, double pStar) {
 		this.pId = pId;
 		this.fId = fId;
 		this.pName = pName;
@@ -24,7 +24,7 @@ public class ProductDTO {
 	@Override
 	public String toString() {
 		return "ProductDTO [상품번호=" + pId + ", 전문가번호=" + fId + ", 상품이름=" + pName + ", 상품설명=" + pDesc + ", 가격="
-				+ pPrice + ", 별점=" + star + "]";
+				+ pPrice + ", 별점=" + String.format("%.2f", star) + "]";
 	}
 
 	public Long getpId() {
@@ -67,11 +67,11 @@ public class ProductDTO {
 		this.pPrice = pPrice;
 	}
 
-	public int getStar() {
+	public double getStar() {
 		return star;
 	}
 
-	public void setStar(int star) {
+	public void setStar(double star) {
 		this.star = star;
 	}
 
