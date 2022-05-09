@@ -1,4 +1,4 @@
-package FirstProject_ver3;
+package FirstProject_ver4;
 
 import java.util.*;
 
@@ -285,7 +285,7 @@ public class FreelancerMarketService {
 			System.out.print("구매하고자 하는 상품번호 입력: ");
 			Long pid = scan.nextLong();
 			ProductDTO product = fmr.buyProduct(cid, pid);
-			if(product == null) {
+			if (product == null) {
 				System.out.println("상품번호를 확인해주세요.");
 			}
 		}
@@ -307,13 +307,13 @@ public class FreelancerMarketService {
 
 	private void inputStar(Long cid) {
 		if (checkStarHistory(cid)) {
-			System.out.print("별점을 주실 상품번호를 입력: ");
-			Long pid = scan.nextLong();
+			System.out.print("별점을 주실 주문번호를 입력: ");
+			Long hid = scan.nextLong();
 			System.out.print("별점 입력 (1부터 5까지의 숫자로 입력): ");
 			double star = scan.nextDouble();
-			if (fmr.inputStar(pid, star)) {
+			if (fmr.inputStar(hid, star, cid)) {
 				System.out.println("별점 등록 성공!");
-				fmr.deleteList(pid);
+				fmr.deleteList(hid);
 			} else {
 				System.out.println("별점 등록 실패!");
 			}
@@ -358,9 +358,11 @@ public class FreelancerMarketService {
 		if (mid.equals(id) && mpw.equals(pw)) {
 			System.out.println("로그인 성공!");
 			while (run) {
-				System.out.println("-------------------------------------------------------------------------");
-				System.out.println("1. 전문가 리스트 | 2. 등록된 상품 확인 | 3. 고객 리스트 | 4. 결제된 상품 리스트 | 5. 로그아웃");
-				System.out.println("-------------------------------------------------------------------------");
+				System.out.println(
+						"--------------------------------------------------------------------------------------------");
+				System.out.println("1. 전문가 리스트 | 2. 등록된 상품 확인 | 3. 고객 리스트 | 4. 결제된 상품 리스트 | 5. 삭제된 상품 리스트 | 6. 로그아웃");
+				System.out.println(
+						"--------------------------------------------------------------------------------------------");
 				System.out.print("메뉴 선택> ");
 				int msel = scan.nextInt();
 				if (msel == 1) {
@@ -372,8 +374,7 @@ public class FreelancerMarketService {
 					} else {
 						System.out.println("등록된 전문가가 없습니다.");
 					}
-				}
-				if (msel == 2) {
+				} else if (msel == 2) {
 					List<ProductDTO> productList = fmr.findAllProduct();
 					if (productList.size() > 0) {
 						for (ProductDTO p : productList) {
@@ -382,8 +383,7 @@ public class FreelancerMarketService {
 					} else {
 						System.out.println("등록된 상품이 없습니다.");
 					}
-				}
-				if (msel == 3) {
+				} else if (msel == 3) {
 					List<ClientDTO> clientList = fmr.findAllClient();
 					if (clientList.size() > 0) {
 						for (ClientDTO c : clientList) {
@@ -392,8 +392,7 @@ public class FreelancerMarketService {
 					} else {
 						System.out.println("가입한 회원이 없습니다.");
 					}
-				}
-				if (msel == 4) {
+				} else if (msel == 4) {
 					List<HistoryDTO> historyList = fmr.findAllHistory();
 					if (historyList.size() > 0) {
 						for (HistoryDTO h : historyList) {
@@ -402,8 +401,16 @@ public class FreelancerMarketService {
 					} else {
 						System.out.println("판매 내역이 없습니다.");
 					}
-				}
-				if (msel == 5) {
+				} else if (msel == 5) {
+					List<ProductDTO> deleteProductList = fmr.deleteProductList();
+					if (deleteProductList.size() > 0) {
+						for (ProductDTO p : deleteProductList) {
+							System.out.println(p);
+						}
+					}else {
+						System.out.println("삭제된 상품이 없습니다.");
+					}
+				} else if (msel == 6) {
 					run = false;
 				}
 			}

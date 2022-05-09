@@ -1,4 +1,4 @@
-package FirstProject_ver3;
+package FirstProject_ver4;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,7 +10,10 @@ public class FreelancerMarketRepository {
 	static List<ProductDTO> productList = new ArrayList<>();
 	static List<HistoryDTO> historyList = new ArrayList<>();
 	static List<HistoryDTO> historyStarList = new ArrayList<>();
+	static List<ProductDTO> deleteProductList = new ArrayList<>();
 
+	Long hId = 0L;
+	
 	public boolean save(FreelancerDTO freelancer) {
 		return freeList.add(freelancer);
 	}
@@ -123,7 +126,7 @@ public class FreelancerMarketRepository {
 									f.setfPoint(f.getfPoint() + pPrice);
 								}
 							}
-							HistoryDTO history = new HistoryDTO(cid, fid, pid, createTime(), pName);
+							HistoryDTO history = new HistoryDTO(++hId, cid, fid, pid, createTime(), pName);
 							historyStarList.add(history);
 							historyList.add(history);
 							System.out.println("구매 성공!");
@@ -189,6 +192,7 @@ public class FreelancerMarketRepository {
 		for (int i = 0; i < productList.size(); i++) {
 			if (pid.equals(productList.get(i).getpId())&& fid.equals(productList.get(i).getfId())) {
 				deleteP = productList.get(i);
+				deleteProductList.add(productList.get(i));
 				productList.remove(i);
 			}
 		}
@@ -198,7 +202,7 @@ public class FreelancerMarketRepository {
 	public List<HistoryDTO> findHistory(Long fid) {
 		List<HistoryDTO> history = new ArrayList<>();
 		for (HistoryDTO h : historyList) {
-			if (fid.equals(h.getcId())) {
+			if (fid.equals(h.getfId())) {
 				history.add(h);
 			}
 		}
@@ -241,8 +245,14 @@ public class FreelancerMarketRepository {
 		return historyList;
 	}
 
-	public boolean inputStar(Long pid, double star) {
+	public boolean inputStar(Long hid, double star, Long cid) {
 		boolean result = false;
+		Long pid = 0L;
+		for(HistoryDTO h: historyList) {
+			if(hid.equals(h.gethId()) && cid.equals(h.getcId())) {
+				pid = h.getpId();
+			}
+		}
 		for (ProductDTO p : productList) {
 			if (pid.equals(p.getpId()) && p.getStar() == 0) {
 				p.setStar(star);
@@ -255,9 +265,9 @@ public class FreelancerMarketRepository {
 		return result;
 	}
 
-	public void deleteList(Long pid) {
+	public void deleteList(Long hid) {
 		for (int i = 0; i < historyStarList.size(); i++) {
-			if (pid.equals(historyStarList.get(i).getpId())) {
+			if (hid.equals(historyStarList.get(i).gethId())) {
 				historyStarList.remove(i);
 			}
 		}
@@ -271,6 +281,10 @@ public class FreelancerMarketRepository {
 			}
 		}
 		return history1;
+	}
+
+	public List<ProductDTO> deleteProductList() {
+		return deleteProductList;
 	}
 
 }
